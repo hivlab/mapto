@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=bt2map
 #SBATCH --partition=amd
-#SBATCH --array=1-2 #3-15,17,18,20-27,30-43,45-54
+#SBATCH --array=1-2 #3-15,17,18,20-27,30-43,45-54 # sample numbers, currently sends only samples 1&2 to array -- modify!
 #SBATCH --cpus-per-task=16
 #SBATCH --mem-per-cpu=4096
 #SBATCH --time=300   # Time limit hrs:min:sec
@@ -23,16 +23,16 @@ cd /gpfs/space/home/taavi74/Projects/mapto
 cpus="$SLURM_CPUS_PER_TASK"
 ID=EV$(printf %02d $SLURM_ARRAY_TASK_ID) # OUR sample id
 
-
 # input/output variables
-gb="U30316.1"
-FA=${gb}.fa # this is your ref sequence 
+gb="U30316.1" # this is your ref sequence 
+FA=${gb}.fa 
 WD="results/bowtie2" # this is where your results will be
 
 bt2base="${WD}/$(basename ${FA%.*})"    #${ref%.*}
 
 conda activate bowtie2
 
+# QC-d reads, edit when necessary
 fq1=$(ls -m /gpfs/space/projects/preterm/saja-aastased/results/trimmed_reads/${ID}*1.fastq.gz)
 fq2=$(ls -m /gpfs/space/projects/preterm/saja-aastased/results/trimmed_reads/${ID}*2.fastq.gz)
 input="-1 $(echo $fq1 | sed 's/ //g') -2 $(echo $fq2 | sed 's/ //g')"

@@ -22,14 +22,14 @@ cd /gpfs/space/home/taavi74/Projects/mapto
 # slurm variables
 cpus="$SLURM_CPUS_PER_TASK"
 
-# download refseq
+# download refseq from Genbank, change this section if it comes from some other source 
 gb="U30316.1"
 curl "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&rettype=fasta&id=${gb}" > ${gb}.fa
 
 
-# input/output variables
+# setup input/output variables
 FA=${gb}.fa # this is your ref sequence 
-WD="results/bowtie2" # this is where your results will be
+WD="results/bowtie2" # this is where your results will be, edit when necessary
 mkdir -p results/bowtie2
 bt2base="${WD}/$(basename ${FA%.*})"    #${ref%.*}
 
