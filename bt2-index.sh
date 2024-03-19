@@ -24,7 +24,7 @@ cpus="$SLURM_CPUS_PER_TASK"
 
 # download refseq
 gb="U30316.1"
-curl 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&rettype=fasta&id=${gb}' > ${gb}.fa
+curl "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nuccore&rettype=fasta&id=${gb}" > ${gb}.fa
 
 
 # input/output variables
